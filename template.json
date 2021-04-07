@@ -1,0 +1,88 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_bicboivmarmone_name": {
+            "defaultValue": "bicboivmarmoneARM",
+            "type": "String"
+        },
+        "disks_bicboivmarmone_OsDisk_1_ff25156de7624895a65286321ea40c0e_externalid": {
+            "defaultValue": "/subscriptions/58f627af-5f2f-4f24-b8b3-67712c182a5c/resourceGroups/bicboi/providers/Microsoft.Compute/disks/bicboivmarmone_OsDisk_1_ff25156de7624895a65286321ea40c0e",
+            "type": "String"
+        },
+        "networkInterfaces_bicboivmarmone555_externalid": {
+            "defaultValue": "/subscriptions/58f627af-5f2f-4f24-b8b3-67712c182a5c/resourceGroups/bicboi/providers/Microsoft.Network/networkInterfaces/bicboivmarmone555",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2020-12-01",
+            "name": "[parameters('virtualMachines_bicboivmarmone_name')]",
+            "location": "australiaeast",
+            "tags": {
+                "Client": "self",
+                "Created": "2021-04-07T18:03:29.0946277Z",
+                "Owner": "fazaary",
+                "Purpose": "test"
+            },
+            "zones": [
+                "1"
+            ],
+            "identity": {
+                "principalId": "f2c07d30-3edc-424d-a54e-f27c4d58adfb",
+                "tenantId": "24041256-c834-468a-b7e7-c4dc34322cfe",
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B2s"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "[concat(parameters('virtualMachines_bicboivmarmone_name'), '_OsDisk_1_ff25156de7624895a65286321ea40c0e')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "storageAccountType": "Premium_LRS",
+                            "id": "[parameters('disks_bicboivmarmone_OsDisk_1_ff25156de7624895a65286321ea40c0e_externalid')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_bicboivmarmone_name')]",
+                    "adminUsername": "azureuser",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true,
+                        "patchSettings": {
+                            "patchMode": "AutomaticByOS",
+                            "enableHotpatching": false
+                        }
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true,
+                    "requireGuestProvisionSignal": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[parameters('networkInterfaces_bicboivmarmone555_externalid')]"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
