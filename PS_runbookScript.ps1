@@ -32,7 +32,7 @@ $Parameters = @{
 # Create a new context
 $Context = New-AzStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $StorageAccountKey
 
-Get-AzStorageFileContent -ShareName 'resource-templates' -Context $Context -path 'TemplateTest.json' -Destination 'C:\Temp'
+Get-AzStorageFileContent -ShareName 'resource-templates' -Context $Context -path 'ct.json' -Destination 'C:\Temp'
 
 $TemplateFile = Join-Path -Path 'C:\Temp' -ChildPath $StorageFileName
 
