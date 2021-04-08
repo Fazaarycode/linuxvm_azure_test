@@ -94,7 +94,7 @@ $runbookParams = @{
     ResourceGroupName = 'bicboi'
     StorageAccountName = 'bicboisecondct'
     StorageAccountKey = $key[0].Value # We got this key earlier
-    StorageFileName = 'TemplateTest.json'
+    StorageFileName = 'ct.json'
 }
 
 
